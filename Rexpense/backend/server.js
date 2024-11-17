@@ -36,7 +36,7 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
 
         // Resize and compress the image before converting to base64
         const compressedBuffer = await sharp(inputPath)
-            .resize(512, 512)  // Resize the image to 512x512 to reduce size
+            .resize(128, 128)  // Resize the image to 512x512 to reduce size
             .png({ quality: 80 })  // Compress the image with a quality of 80
             .toBuffer();  // Get the compressed image as a buffer
         
@@ -47,15 +47,52 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
         base64Image = compressedBuffer.toString('base64');
 
         // Prepare the request body for the SambaNova API
+        // const imageData = {
+        //     "messages": [
+        //         {
+        //             "role": "user",
+        //             "content": base64Image,  // The resized and compressed image
+        //         }
+        //     ],
+        //     "model": "Llama-3.2-11B-Vision-Instruct" // Use a model with a reasonable token limit
+        // };
         const imageData = {
+            "model": "Llama-3.2-11B-Vision-Instruct",
             "messages": [
-                {
-                    "role": "user",
-                    "content": base64Image,  // The resized and compressed image
-                }
+              {
+                "role": "user",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "What'\''s in this image?"
+                  },
+                  {
+                    "type": "image",  // Using "image" type instead of "image_url"
+                    "image": {
+                        "data": `data:image/jpeg;base64,${base64Image}`  // Directly include the base64 image
+                    }
+                },
+                //   {
+                //     "type": "image_url",
+                //     "image_url": {
+                //       "url": "data:image/jpeg;base64,{base64Image}"
+                //     }
+                //   },
+
+                  {
+                    "type": "text",
+                    "text": "Summarize"
+                  },
+                ]
+              }
             ],
-            "model": "Llama-3.2-11B-Vision-Instruct" // Use a model with a reasonable token limit
-        };
+            "max_tokens": 800, 
+            "temperature": 0, 
+            "top_p": 0, 
+            "top_k": 1, 
+            "stop": "<eot>",
+          }
+        
 
         // Call the processImage function and return the result
         const result = await processImage(imageData);
