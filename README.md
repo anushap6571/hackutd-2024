@@ -2,4 +2,6 @@
 
 ```
 $ npm install axios
+$ npm install multer
+$ npm install sharp
 ```
