@@ -5,7 +5,7 @@ const SAMBA_NOVA_API_URL = 'https://api.sambanova.ai/v1/chat/completions'; // Re
 
 
 //const API_KEY = process.env.SAMBA_NOVA_API_KEY; // Load API key from .env file
-const API_KEY = 'fe3ff526-dc7d-4e18-b27d-29d12e42c810';
+
 //console.log(process.env);  // This will show all environment variables loaded
 //console.log(process.env.SAMBA_NOVA_API_KEY);
 // Function to send a POST request to the SambaNova API
