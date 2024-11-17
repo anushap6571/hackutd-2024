@@ -1,5 +1,8 @@
 require('dotenv').config();
 const axios = require('axios');
+const tesseract = require('tesseract.js');
+const fs = require('fs');
+const sharp = require('sharp');
 
 const SAMBA_NOVA_API_URL = 'https://api.sambanova.ai/v1/chat/completions'; // Replace with the actual endpoint
 
