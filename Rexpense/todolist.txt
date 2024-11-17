@@ -1,0 +1,5 @@
+App:
+HomeScreen:
+ChartScreen: 
+CameraScreen: (fix flip camera and take picture buttons)
+ProfileScreen: (Make feature to delete photos)

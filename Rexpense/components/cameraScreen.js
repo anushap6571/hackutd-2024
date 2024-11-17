@@ -1,9 +1,11 @@
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useState, useRef} from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
+import * as MediaLibrary from 'expo-media-library';
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState('back');
+  const [image, setImage] = useState(null);
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
 
@@ -29,20 +31,20 @@ export default function CameraScreen() {
   const takePicture = async () => {
     if (cameraRef.current) {
       try {
-        const photo = await cameraRef.current.takePictureAsync(); // Capture photo
-        Alert.alert('Picture taken!', `Photo saved at: ${photo.uri}`);
-        console.log('Photo:', photo); // Log photo details
+        const photo = await cameraRef.current.takePictureAsync();
+        const asset = await MediaLibrary.createAssetAsync(photo.uri); // Save photo to media library
+        Alert.alert('Success', 'Picture saved to gallery!');
+        console.log(photo);
       } catch (error) {
-        console.error('Error taking picture:', error);
+        Alert.alert('Error', 'Could not take picture');
       }
-    } else {
-      console.error('Camera reference is null');
     }
   };
 
+
   return (
     <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing}>
+      <CameraView ref={cameraRef} style={styles.camera} facing={facing}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
             <Text style={styles.text}>Flip Camera</Text>
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'flex-end',
     alignItems: 'center',
+    marginBottom: '50'
   },
   text: {
     fontSize: 24,

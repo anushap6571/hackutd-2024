@@ -1,29 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ImageBackground, Image} from 'react-native';
+import React from 'react';
+import { StyleSheet, Button, View, ImageBackground, Image} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-//screens
-import OpeningScreen from './components/openingScreen';
+// Screens
 import HomeScreen from './components/homeScreen';
 import ChartScreen from './components/chartScreen';
 import CameraScreen from './components/cameraScreen';
 import ProfileScreen from './components/profileScreen';
 
-//gray icons
+// Gray icons
 import GrayHomeIcon from './assets/universalAssets/navBarGrayIcons/home.png';
 import GrayPieIcon from './assets/universalAssets/navBarGrayIcons/pie-chart.png';
 import GrayCameraIcon from './assets/universalAssets/navBarGrayIcons/camera.png';
 import GrayProfileIcon from './assets/universalAssets/navBarGrayIcons/user.png';
 
-//purple icons
+// Purple icons
 import PurpleHomeIcon from './assets/universalAssets/navBarPurpleIcons/home.png';
 import PurplePieIcon from './assets/universalAssets/navBarPurpleIcons/pie-chart.png';
 import PurpleCameraIcon from './assets/universalAssets/navBarPurpleIcons/camera.png';
 import PurpleProfileIcon from './assets/universalAssets/navBarPurpleIcons/user.png';
 
-
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function MyTabs() {
   return (
@@ -31,38 +31,33 @@ function MyTabs() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName;
-          let iconLabel;
 
-          // Assign icons and labels based on the route name
           if (route.name === 'HomeScreen') {
             iconName = focused ? PurpleHomeIcon : GrayHomeIcon;
-            iconLabel = "Home";
           } else if (route.name === 'ChartScreen') {
             iconName = focused ? PurplePieIcon : GrayPieIcon;
-            iconLabel = "Chart";
           } else if (route.name === 'CameraScreen') {
             iconName = focused ? PurpleCameraIcon : GrayCameraIcon;
-            iconLabel = "Camera";
           } else if (route.name === 'ProfileScreen') {
             iconName = focused ? PurpleProfileIcon : GrayProfileIcon;
-            iconLabel = "Profile";
           }
 
           return (
-            <Image source={iconName} style={{width: 24, height: 24, top: 10}}/>
+            <Image source={iconName} style={{ width: 24, height: 24, top: 10 }} />
           );
         },
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: '#272727', // Tab bar background
-          width: 360, // Explicit width of the tab bar
-          height: 62, // Height of the tab bar
-          borderRadius: 50, // Rounded corners
-          bottom: 20, // Distance from the bottom
-          alignSelf: 'center', // Center horizontally within the parent
+          backgroundColor: '#272727',
+          width: 360,
+          height: 62,
+          borderRadius: 50,
+          bottom: 30,
+          alignSelf: 'center',
+          position: 'absolute', // Prevents white box underneath
+          marginLeft: 10,
         },
-        
       })}
     >
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
@@ -73,34 +68,49 @@ function MyTabs() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  iconContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  },
-  iconLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    marginTop: 5, // Adds space between icon and label
-  },
-});
+function OpeningScreen({ navigation }) {
+  return (
+    <ImageBackground
+      style={styles.container}
+      source={require('./assets/universalAssets/RexpenseBackground.png')}
+    >
+      <Image source={require('./assets/universalAssets/logos/fullRex.png')} style={{height: '25%', width: '50%', resizeMode: 'contain'}}/>
+      <Image source={require('./assets/universalAssets/logos/rexpense.png')} style={{height: '10%', width: '50%', resizeMode: 'contain'}}/>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Go To Home"
+          color="#9994C7"
+          onPress={() => navigation.navigate('MainTabs')} // Navigate to the main tabs
+        />
+      </View>
+    </ImageBackground>
+  );
+}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <ImageBackground
-        style={styles.container}
-        source={require('./assets/universalAssets/RexpenseBackground.png')}
-      >
-        <MyTabs />
-      </ImageBackground>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {/* Opening Screen */}
+        <Stack.Screen name="OpeningScreen" component={OpeningScreen} />
+        
+        {/* Main Tabs */}
+        <Stack.Screen name="MainTabs" component={MyTabs} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    backgroundColor: '#272727',
+    borderRadius: 20,
+    position: 'absolute',
+    bottom: '10%',
+  },
+});
