@@ -38,6 +38,17 @@ export default function HomeScreen() {
                     type="Miscellaneous"
                 />
                 <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold', top: 20}}>your balance</Text>
+                <View style={{top: 20, height: 38, width: 375}}>
+                    <Text style={{fontSize: 20, color: '#8D8D8D', fontWeight: '700', alignSelf: 'flex-end', right: 20}}>$532.03</Text>
+                    <View style={{height: 11, width: 356, backgroundColor: '#8D8D8D', borderRadius: 20}}></View>
+                    <Text style={{fontSize: 20, color: '#8D8D8D', fontWeight: '700'}}>october</Text>
+                </View>
+                <View style={{top: 40, height: 38, width: 282}}>
+                    <Text style={{fontSize: 20, color: '#BFCC94', fontWeight: '700', alignSelf: 'flex-end'}}>$532.03</Text>
+                    <View style={{height: 11, width: 282, backgroundColor: '#BFCC94', borderRadius: 20}}></View>
+                    <Text style={{fontSize: 20, color: '#BFCC94', fontWeight: '700'}}>november</Text>
+                </View>
+                
             </ScrollView>
         </ImageBackground>
     )

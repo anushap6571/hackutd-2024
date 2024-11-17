@@ -54,7 +54,8 @@ const Accordion = ({ title, content, type}) => {
     <View style={[styles.container, {backgroundColor: boxColor}]}>
       <ScrollView>
       {/* Accordion Header */}
-      <TouchableOpacity style={[styles.header, {backgroundColor: boxColor}]} onPress={toggleAccordion}>
+      <TouchableOpacity style={[styles.header, {backgroundColor: boxColor, flexDirection: 'row', justifyContent: 'space-between'}]} onPress={toggleAccordion}>
+        <Text style={styles.headerText}>{title}</Text>
         <Text style={styles.headerText}>{title}</Text>
       </TouchableOpacity>
 
