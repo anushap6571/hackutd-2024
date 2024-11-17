@@ -5,7 +5,7 @@ const SAMBA_NOVA_API_URL = 'https://api.sambanova.ai/v1/chat/completions'; // Re
 
 
 //const API_KEY = process.env.SAMBA_NOVA_API_KEY; // Load API key from .env file
-const API_KEY = process.env.MBA_NOVA_API_KEY;
+const API_KEY = process.env.SAMBA_NOVA_API_KEY;
 
 // Function to send a POST request to the SambaNova API
 async function processImage(imageData) {
