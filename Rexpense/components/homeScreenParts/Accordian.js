@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Animated, Dimensions, ScrollV
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const Accordion = ({ title, content, type}) => {
+const Accordion = ({ title, content, type, money}) => {
   const [expanded, setExpanded] = useState(false); // Track accordion state
   const [animationHeight] = useState(new Animated.Value(0)); // Animation for expanding/collapsing
   const [boxColor, setBoxColor] = useState("");
@@ -56,7 +56,7 @@ const Accordion = ({ title, content, type}) => {
       {/* Accordion Header */}
       <TouchableOpacity style={[styles.header, {backgroundColor: boxColor, flexDirection: 'row', justifyContent: 'space-between'}]} onPress={toggleAccordion}>
         <Text style={styles.headerText}>{title}</Text>
-        <Text style={styles.headerText}>{title}</Text>
+        <Text style={styles.headerText}>{money}</Text>
       </TouchableOpacity>
 
       {/* Accordion Body */}

@@ -2,10 +2,12 @@ import { useState, useEffect, useCallback} from 'react';
 import { StyleSheet, Text, Button, View, Image, FlatList, Alert, ImageBackground } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
 import * as MediaLibrary from 'expo-media-library';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ProfileScreen() {
   const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState(null);
   const [galleryPhotos, setGalleryPhotos] = useState([]);
+  const navigation = useNavigation();
 
   // Request Media Library Permissions
   useEffect(() => {
@@ -67,6 +69,17 @@ export default function ProfileScreen() {
         <View style={styles.header}>
             <Image style={styles.logoImage} source={require('../assets/universalAssets/logos/logoAndText.png')}/>
         </View>
+        <Text style={{color: 'white', fontSize: 40, marginVertical: 20}}>Profile</Text>
+        <Image style={{height: 298, width: 298, borderRadius: 150, resizeMode: 'center'}}source={require('../assets/universalAssets/bob.jpeg')}></Image>
+        <Text style={{color: 'white', fontSize: 24, marginVertical: 20}}>Mercedes</Text>
+        <Text style={{color: 'white', fontSize: 12, marginVertical: 20, top: -30}}>mercedes_benz25</Text>
+        <View style={styles.buttonContainer}>
+        <Button
+          title="logout"
+          color="#9994C7"
+          onPress={() => navigation.navigate('OpeningScreen')} // Navigate to the main tabs
+        />
+      </View>
       {galleryPhotos.length > 0 ? (
         <FlatList
           data={galleryPhotos}
@@ -123,5 +136,10 @@ logoImage: {
     marginTop: 20,
     fontSize: 16,
     color: '#666',
+  },
+  buttonContainer: {
+    top: -30,
+    backgroundColor: '#272727',
+    borderRadius: 20,
   },
 });

@@ -1,8 +1,34 @@
 import { StyleSheet, Image, Text, View, ImageBackground, ScrollView} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Accordion from './homeScreenParts/Accordian';
+import { useEffect } from 'react';
 
 export default function HomeScreen() {
+
+    // const fetchData = async () => {
+    //     const serverURL = "http://localhost:3000/scan-receipt";
+    //     try {
+    //       const response = await fetch(serverURL, {
+    //         method: 'POST', // Specify method (optional for GET requests)
+    //       });
+      
+    //       if (!response.ok) {
+    //         throw new Error(`Server error: ${response.status}`); // Handle non-2xx responses
+    //       }
+      
+    //       const data = await response.json(); // Parse JSON response
+    //       console.log('Fetched Data:', data); // Utilize the data
+    //       return data; // Return the data if needed elsewhere
+    //     } catch (error) {
+    //       console.error('Fetch error:', error); // Handle errors
+    //       throw error; // Re-throw error if necessary
+    //     }
+    //   };
+      
+    //   useEffect(() => {
+    //     fetchData();
+    //   }, []);
+    
     return (
         <ImageBackground style={styles.container} source={require('../assets/universalAssets/RexpenseBackground.png')}>
             <View style={styles.header}>
@@ -18,24 +44,28 @@ export default function HomeScreen() {
             </View>
             <ScrollView style={styles.accordianContainer}>
                 <Accordion
-                    title="Accordion 1"
+                    title="Kroger"
                     content="This is the content for Accordion 1. You can put anything here."
                     type="Grocery"
+                    money="34.55"
                 />
                 <Accordion
-                    title="Accordion 2"
+                    title="Nordstrom"
                     content="This is the content for Accordion 2. Feel free to customize it!"
                     type="Shopping"
+                    money="34.55"
                 />
                 <Accordion
-                    title="Accordion 3"
+                    title="Jollibee's"
                     content="This is the content for Accordion 3. Add as many accordions as you like."
                     type="Restaurants"
+                    money="34.55"
                 />
                 <Accordion
-                    title="Accordion 4"
+                    title="Theater of Arts"
                     content="This is the content for Accordion 3. Add as many accordions as you like."
                     type="Miscellaneous"
+                    money="34.55"
                 />
                 <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold', top: 20}}>your balance</Text>
                 <View style={{top: 20, height: 38, width: 375}}>
